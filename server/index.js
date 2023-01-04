@@ -7,7 +7,7 @@ import multer from "multer";
 import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
-import { fileURLToPathq } from "url";
+import { fileURLToPath } from "url";
 
 // configurations
 const __filename = fileURLToPath(import.meta.url); //grab file url
@@ -30,7 +30,16 @@ const storage = multer.diskStorage({
         cb(null, "public/assets");
     },
     filename: function(req,file,cb){
-        cb(null,file.orginalname);
+        cb(null,file.originalname);
     },
 });
 const upload = multer({ storage }); //saves, use this variable to upload files
+
+//MONGOOSE SETUP
+const PORT = process.env.PORT || 6001; //go to PORT in .env, but if it doesnt work do port 6001
+mongoose.connect(process.env.MONGO_URL,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => {
+    app.listen(PORT, () => console.log(`Server Port: ${PORT}`))
+}).catch((error) => console.log(`${error} did not connect`));
