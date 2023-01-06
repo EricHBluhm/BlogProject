@@ -42,4 +42,24 @@ export const register = async (req,res) => { //async b/c calling mongo database,
     } catch (err){
         res.status(500).json({ error: err.message }) //when soemthing goes wrong, send frontend status of 500, with an error emssage from the mongoDB database
     }
+};
+
+//Logging in
+
+export const login = async (req,res) => {
+    try{
+        const { email, password} = req.body; //grabbing email and password
+        const user  = await User.findOne({email:email}); //use Mongoose to find one with specified email and get user info
+        if(!user) return res.status(400).json({ msg: "User does not exist. "}); //if user cannot be found
+
+        const isMatch = bcrypt.compare(password, user.password) //compare password that was inputed with the password in the database
+        if (!isMatch) return res.status(400).json({ msg: "Invalid Login. "});
+
+        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET); //jwt webtoken
+        delete user.password; //so password isn't sent back to the frontend
+        res.status(200).json({ token, user });
+
+    } catch (err) {
+        res.status(500).json({ error: err.message })
+    }
 }
