@@ -59,11 +59,22 @@ export const likePost = async (req,res) => {
     try{
         const{ id } = req.params; //grab the relevant post. id comes from query sting
         const { userId } = req.body;  //userId comes from the body of the request
-        const post = await Post.findById(id);
+        const post = await Post.findById(id); //grabbing post information
         const isLiked = post.likes.get(userId); //check in likes if userId exists. if it does, that mean the post is liked by that particular person
 
+        if (isLiked){ //if post is liked by user
+            post.likes.delete(userId); //so if press like with the post already being liked by the current user, it will delete the like in the map?
+        } else {
+            post.likes.set(userId, true); //like post, and add userId to true
+        }
 
-        res.status(200).json(); //return all posts, so frontend has updated posts . 200 sucessful request
+        const updatedPost = await Post.findByIdAndUpdate ( //update a specific post, pass in id, and lieks to new post we are modyfing
+            id,
+            {likes: post.likes }, //list of likes that we modified
+            {new: true} //new object
+        );
+
+        res.status(200).json(updatedPost); //return all posts, so frontend has updated posts . Pass in updated post to update front end
     } catch (err) {
         res.status(404).json({message: err.message })
     }
