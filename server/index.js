@@ -8,8 +8,12 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
-import { register } from "./controllers/auth.js"
-import authRoutes from "./routes/auth.js"
+import { register } from "./controllers/auth.js";
+import userRoutes from "./routes/users.js";
+import authRoutes from "./routes/auth.js";
+import postRoutes from "./routes/posts.js";
+import {createPost } from "./controllers/posts.js";
+import { verifyToken } from "./middleware/auth.js";
 
 // configurations
 const __filename = fileURLToPath(import.meta.url); //grab file url
@@ -39,9 +43,12 @@ const upload = multer({ storage }); //saves, use this variable to upload files
 
 // //Routes WITH FILES
 app.post("/auth/register", upload.single("picture"), register); //route to auth/register, use middleware (upload.single.. locally into the public/assets folder), register is our function(controller)
+app.post("/posts", verifyToken, upload.single("picture"), createPost); //1:14 explanation
 
 //Routes
 app.use("/auth",authRoutes);
+app.use("/users", userRoutes);
+app.use("/posts", postRoutes);
 
 //MONGOOSE SETUP
 const PORT = process.env.PORT || 6001; //go to PORT in .env, but if it doesnt work do port 6001
