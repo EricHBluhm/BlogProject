@@ -14,6 +14,9 @@ import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
 import {createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
+import User from "./models/User.js";
+import Post from "./models/Post.js";
+import {users, posts } from "./data/index.js";
 
 // configurations
 const __filename = fileURLToPath(import.meta.url); //grab file url
@@ -56,5 +59,9 @@ mongoose.connect(process.env.MONGO_URL,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => {
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`))
+    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+
+    //add data one time, run this once, then comment it out
+   // User.insertMany(users); //insert dummy users
+    //Post.insertMany(posts); //insert dumm posts
 }).catch((error) => console.log(`${error} did not connect`));
