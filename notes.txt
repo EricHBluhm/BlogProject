@@ -1,0 +1,31 @@
+https://www.youtube.com/watch?v=K8YELRmUb5o&list=PLU_kSvXF5gWPuPm5W0JjGWbHvCFhbzulV&index=2
+
+Packages for backend:
+express - library
+body-parser - process the request body
+bcrypt - password encyrption
+cors - cross orgin requests
+dotenv - environment variables
+gridfs-stream - file upload
+multer
+multer-gridfs sttorage-  upload files locally
+helmet - request safety
+morgan - logging
+jsonwebtoken - authentication
+mongoose - mongodb access
+
+front end: npm i react-redux @reduxjs/toolkit redux-persist react-dropzone dotenv formik yup react-router-dom@6 @mui/material @emotion/react @emotion/styled @mui/icons-material
+
+react-redux - state management
+redux toolkit - wrapper around redux to make it easier to use
+redux-persist - save state to local storage
+react-dropzone - handle file upload and handling on front end to send to backend
+dotenv - environment variable 
+formik - form handling
+yup - validation
+react-router-dom@6 - handling route and pages
+materialUI - theme
+
+look up:
+filter function Javascript ~1:10
+look up difference betweenr req.body and req.params ~1:41:40
