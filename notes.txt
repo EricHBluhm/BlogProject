@@ -30,3 +30,7 @@ look up:
 filter function Javascript ~1:10
 look up difference betweenr req.body and req.params ~1:41:40
 redux and redux toolkit
+
+
+//1:45
+// when we import different files into otherfiles, we can just start from source
