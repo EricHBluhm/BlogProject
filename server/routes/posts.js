@@ -5,8 +5,8 @@ import { verifyToken } from "../middleware/auth.js";
 const router = express.Router();
 
 //READ
-router.get("/", verifyToken, getFeedPosts); //grab user feed when on homepage, homepage puts all posts in database on page (want to be curated with algos in real life)
-router.get("/:userId/posts", verifyToken, getUserPosts);//get relavent user posts only
+router.get("/", verifyToken, getFeedPosts); //grab user feed when on homepage, homepage puts all posts in database on page (want to be curated with algos in real life). PostsWdiget
+router.get("/:userId/posts", verifyToken, getUserPosts);//get relavent user posts only. PostsWidget
 
 //UPDATE
 router.patch("/:id/like", verifyToken, likePost); //liking/unliking post
